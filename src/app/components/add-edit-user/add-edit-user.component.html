@@ -1,0 +1,71 @@
+<div class="container" *ngIf="incomingData && incomingData.action !== 'delete'">
+  <div class="row form-title">
+    <h3>Add User</h3>
+  </div>
+  <div class="row">
+    <form class="example-form" [formGroup]="addUserForm" (ngSubmit)="addUser()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field
+        formControlName="roles"
+        style="width: 80%"
+        class="select-input-field"
+      >
+        <mat-select
+          formControlName="roles"
+          [(value)]="selected"
+          placeholder="Select Role Type"
+        >
+          <mat-option [value]="">None</mat-option>
+          <mat-option *ngFor="let role of roles" [value]="role.roleName">{{
+            role.roleName
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="row action-btn-div">
+        <button
+          mat-raised-button
+          color="warn"
+          class="cancel-btn"
+          (click)="closePopup()"
+        >
+          CANCEL
+        </button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="save-btn"
+          [disabled]="addUserForm.invalid"
+        >
+          SAVE
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container" *ngIf="incomingData && incomingData.action === 'delete'">
+  <div class="row">
+    <h2 style="font-weight: 500">Are you sure you want delete this?</h2>
+  </div>
+  <div class="row">
+    <button
+      mat-raised-button
+      color="warn"
+      class="yes-btn"
+      (click)="deleteUser()"
+    >
+      YES
+    </button>
+    <button mat-raised-button class="no-btn" (click)="cancelDelete()">
+      NO
+    </button>
+  </div>
+</div>
